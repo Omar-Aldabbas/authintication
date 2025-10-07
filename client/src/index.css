@@ -1,1 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import "tailwindcss";
+
+body {
+  font-family: "Poppins", sans-serif;
+  /* background-color: #dcdce6; */
+  background-image: url("./assets/Background.png");
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px #4747470b;
+  backdrop-filter: blur(7.1px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  @apply border-4 border-gray-50 shrink-0 h-3/4 w-[30%] rounded-3xl py-20 px-7 min-w-max;
+}
+
+@utility profile_img {
+  @apply rounded-full w-28 h-28 shadow-xs border-4 border-gray-400 hover:border-gray-200 transition duration-400;
+}
+
+@utility textbox {
+  @apply border-0 px-4 py-4 rounded-xl w-full shadow-sm text-lg focus:outline-none;
+}
+
+@utility btn {
+  @apply border bg-indigo-500 w-full rounded-lg py-4 text-gray-50 text-xl shadow-sm text-center hover:bg-red-400 transition duration-400;
+}
