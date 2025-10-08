@@ -11,7 +11,7 @@ import { Toaster } from "sonner";
 import {Password} from "./components/Password";
 import { Username } from "./components/Username";
 import {Register} from "./components/Register";
-// import {Profile} from "./components/Profile";
+import {Profile} from "./components/Profile";
 import {Recovery} from "./components/Recovery";
 import {Reset} from "./components/Reset";
 // import {NotFound} from "./components/NotFound";
@@ -25,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="recovery" element={<Recovery/>}/>
       <Route path="reset" element={<Reset/>}/>
       <Route path="register" element={<Register/>}/>
+      <Route path="profile" element={<Profile/>}/>
       <Route
         path="*"
         element={

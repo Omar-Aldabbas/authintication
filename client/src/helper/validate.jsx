@@ -59,7 +59,7 @@ export const resetPasswordValidate = async (values) => {
 
 // RETISTER
 
-export const registerValidation = async (values) => {
+export const registerValidate = async (values) => {
   const errors = usernameVerify({}, values);
   passwordVerify(errors, values);
   emailVerify(errors, values);
@@ -68,14 +68,22 @@ export const registerValidation = async (values) => {
 };
 
 const emailVerify = (errors = {}, values) => {
-  const regex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+  const regex = /^(?!\.)([\w._-]+)@([\w-]+\.)+[\w-]{2,}$/i;
   if (!values.email) {
     errors.email = toast.error("Email is Required");
-  } else if (values.email.includes("")) {
+  } else if (values.email.includes(" ")) {
     errors.email = toast.error("Email should be Valid");
-  } else if (regex.test(values.email)) {
+  } else if (!regex.test(values.email)) {
     errors.email = toast.error("Invalid Email Address");
   }
+
+  return errors;
+};
+
+// Profile
+
+export const profileValidate = async (values) => {
+  const errors = emailVerify({}, values);
 
   return errors;
 };
