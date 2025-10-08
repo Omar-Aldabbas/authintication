@@ -21,9 +21,9 @@ body {
 }
 
 @utility textbox {
-  @apply border-0 px-4 py-4 rounded-xl w-full shadow-sm text-lg focus:outline-none;
+  @apply border-0 px-4 py-3 rounded-xl w-full shadow-sm text-lg focus:outline-none;
 }
 
 @utility btn {
-  @apply border bg-indigo-500 w-full rounded-lg py-4 text-gray-50 text-xl shadow-sm text-center hover:bg-red-400 transition duration-400;
+  @apply border bg-indigo-500 w-full rounded-lg py-3 text-gray-50 text-xl shadow-sm text-center hover:bg-red-400 transition duration-400;
 }

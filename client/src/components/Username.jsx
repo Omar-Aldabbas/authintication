@@ -25,8 +25,8 @@ export const Username = () => {
       <div className="glass ">
         <div className="flex flex-col justify-center items-center gap-8 text-center">
           <div className="space-y-4 ">
-            <h2 className="text-5xl font-semibold">Hello Again</h2>
-            <span className="text-xl text-gray-400">Explore safe content</span>
+            <h2 className="text-4xl font-semibold">Hello Again</h2>
+            <span className="text-lg text-gray-400">Explore safe content</span>
           </div>
           <form
             onSubmit={formik.handleSubmit}
