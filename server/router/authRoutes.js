@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  authinticate,
+  authenticate,
   generateOTP,
   login,
   logout,
@@ -8,6 +8,7 @@ import {
   registerMail,
   resetPassword,
   resetSession,
+  userVerify,
   verifyOTP,
 } from "../controller/authController.js";
 
@@ -20,11 +21,11 @@ router.get("/reset-session", resetSession);
 router.get("/logout", logout);
 
 //post
-router.get("/register", register);
-router.get("/register-mail", registerMail);
-router.get("/login", login);
-router.get("/redet-password", resetPassword);
-router.get("/authinticate", authinticate);
-//
+router.post("/register", register);
+router.post("/register-mail", registerMail);
+router.post("/login", userVerify, login);
+router.post("/reset-password", resetPassword);
+router.post("/authenticate", authenticate);
+
 
 export default router;
