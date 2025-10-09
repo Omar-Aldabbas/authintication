@@ -5,11 +5,12 @@ export const connect = async () => {
   try {
     const mongod = await MongoMemoryServer.create({
       binary: {
-        version: "7.0.3", // 👈 known good version
+        version: "7.0.3",
       },
     });
     const getUri = mongod.getUri();
 
+    mongoose.set("strictQuery", true);
     const db = await mongoose.connect(getUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -19,6 +20,6 @@ export const connect = async () => {
     return db;
   } catch (err) {
     console.error("❌ Database connection error:", err);
-    throw err; 
+    throw err;
   }
 };

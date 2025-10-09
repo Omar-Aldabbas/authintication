@@ -3,6 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { connect } from "./database/connection.js";
+import router from "./router/route.js";
 
 dotenv.config();
 
@@ -24,6 +25,10 @@ app.get("/", (req, res) => {
 });
 
 const port = process.env.PORT;
+
+// Routes (small app no need to seperate)
+app.use("/api/v1", router)
+
 
 // Only Connect if there is a valid database
 
