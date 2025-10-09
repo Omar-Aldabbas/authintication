@@ -11,12 +11,13 @@ import {
   userVerify,
   verifyOTP,
 } from "../controller/authController.js";
+import { localVariables } from "../middleware/auth.js";
 
 const router = Router();
 
 // get
-router.get("/OTP", generateOTP);
-router.get("/OTP/verify", verifyOTP);
+router.get("/generate-OTP", userVerify, localVariables, generateOTP);
+router.get("/verify-OTP", verifyOTP);
 router.get("/reset-session", resetSession);
 router.get("/logout", logout);
 
@@ -26,6 +27,5 @@ router.post("/register-mail", registerMail);
 router.post("/login", userVerify, login);
 router.post("/reset-password", resetPassword);
 router.post("/authenticate", authenticate);
-
 
 export default router;

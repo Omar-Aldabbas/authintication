@@ -2,20 +2,19 @@ import User from "../model/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ErrorResponse } from "../utils/errorHandler.js";
 import bcrypt from "bcrypt";
-import  jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import otpGenerator from "otp-generator";
 
 // middleware
 
-export const userVerify = asyncHandler( async(req, res, next) => {
-  const {username} = req.method === "GET" ? req.query : req.body; 
+export const userVerify = asyncHandler(async (req, res, next) => {
+  const { username } = req.method === "GET" ? req.query : req.body;
 
   const exist = await User.findOne({ username });
 
-  if(!exist) throw new ErrorResponse("No user found", 404);
-  next()
-})
-
-
+  if (!exist) throw new ErrorResponse("No user found", 404);
+  next();
+});
 
 export const login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
@@ -28,9 +27,13 @@ export const login = asyncHandler(async (req, res) => {
     throw new ErrorResponse("Wrong password, please try again", 401);
   }
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "15m",
-  });
+  const token = jwt.sign(
+    { id: user._id, username: user.username },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "15m",
+    }
+  );
 
   res.status(200).json({
     status: "success",
@@ -64,13 +67,32 @@ export const register = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const generateOTP = async (req, res) => {
-  res.json("generateOTP request");
-};
+export const generateOTP = asyncHandler(async (req, res) => {
+  req.app.locals.OTP = await otpGenerator.generate(6, {
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
 
-export const verifyOTP = async (req, res) => {
-  res.json("verifyOTP request");
-};
+  res.status(201).json({
+    code: req.app.locals.OTP,
+  });
+});
+
+export const verifyOTP = asyncHandler(async (req, res) => {
+  const { code } = req.query;
+  if (!code) {
+    throw new ErrorResponse("Code not correct", 400);
+  }
+  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+    req.app.locals.OTP = null;
+    req.app.locals.resetSession = true;
+    res.status(201).json({
+      message: "OTP Verified",
+    });
+  }
+  throw new ErrorResponse("Invalid OTP", 400);
+});
 
 export const resetPassword = async (req, res) => {
   res.json("resetPassword request");
