@@ -5,19 +5,21 @@ import {
   login,
   logout,
   register,
-  registerMail,
+  // registerMail,
   resetPassword,
   resetSession,
   userVerify,
   verifyOTP,
 } from "../controller/authController.js";
 import { localVariables } from "../middleware/auth.js";
+import { registerMail } from "../utils/mailer.js";
+
 
 const router = Router();
 
 // get
 router.get("/generate-OTP", userVerify, localVariables, generateOTP);
-router.get("/verify-OTP", verifyOTP);
+router.get("/verify-OTP",userVerify, verifyOTP);
 router.get("/reset-session", resetSession);
 router.get("/logout", logout);
 
@@ -25,7 +27,9 @@ router.get("/logout", logout);
 router.post("/register", register);
 router.post("/register-mail", registerMail);
 router.post("/login", userVerify, login);
-router.post("/reset-password", resetPassword);
 router.post("/authenticate", authenticate);
+
+// put
+router.put("/reset-password", userVerify, resetPassword);
 
 export default router;

@@ -19,7 +19,7 @@ export const protect = asyncHandler(async (req, res, next) => {
 export const localVariables = (req, res, next) => {
   req.app.locals = {
     OTP: null,
-    resetSettion: false,
+    resetSession: false,
   };
 
   next();
