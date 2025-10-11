@@ -35,19 +35,19 @@ export const register = async (credentials) => {
   try {
     const { data, status } = await API.post("/auth/register", credentials);
 
-    const { user, email } = credentials;
+    const { username, email } = credentials;
 
     //send email
     if (status === 201) {
       await API.post("/auth/register-mail", {
-        username: user,
+        username: username,
         userEmail: email,
         text: data.message,
       });
     }
     return Promise.resolve(data.message);
   } catch (err) {
-    return Promise.reject(err);
+    return Promise.reject(err.response.data);
   }
 };
 

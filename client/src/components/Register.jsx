@@ -4,8 +4,12 @@ import { useFormik } from "formik";
 import { registerValidate } from "../helper/validate";
 import { useState } from "react";
 import { convertToBase64 } from "../helper/convert";
+import { register } from "../api/api";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState();
 
   const formik = useFormik({
@@ -19,8 +23,20 @@ export const Register = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      values = await Object.assign(values, { profile: file || ""});
+      values = await Object.assign(values, { profile: file || "" });
       console.log(values);
+      let registerUser = register(values);
+      toast.promise(registerUser, {
+        loading: `Creating an account`,
+        success: <b>Account created</b>,
+        error: (err) =>
+          err?.message ||
+          (typeof err === "string" ? err : "Something went wrong"),
+      });
+
+      registerUser.then(function () {
+        navigate("/user");
+      });
     },
   });
 
@@ -43,7 +59,11 @@ export const Register = () => {
           >
             <div className="flex flex-col justify-center items-center py-4 ">
               <label htmlFor="profile">
-                <img src={file || avatar} alt="avatar" className="profile_img" />
+                <img
+                  src={file || avatar}
+                  alt="avatar"
+                  className="profile_img"
+                />
               </label>
 
               <input
@@ -51,7 +71,7 @@ export const Register = () => {
                 id="profile"
                 name="profile"
                 className="hidden"
-                onChange = {Onuploud}
+                onChange={Onuploud}
               />
             </div>
             <div className=" flex flex-col justify-center items-center gap-3">

@@ -1,11 +1,10 @@
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profile from "../assets/profile.png";
 import { useFormik } from "formik";
 import { usernameValidate } from "../helper/validate";
-import { useAuthStore } from "../../store/store";
+import { useAuthStore } from "../store/store";
 
 export const Username = () => {
-
   const navigate = useNavigate();
   const setUsername = useAuthStore((state) => state.setUsername);
   // const username = useAuthStore((state) => state.auth.username);
@@ -18,8 +17,7 @@ export const Username = () => {
     validateOnChange: false,
     onSubmit: async (values) => {
       setUsername(values.username);
-      // console.log(username);
-      navigate("/password")
+      navigate("/password");
     },
   });
 

@@ -19,7 +19,7 @@ export const useFetch = (query) => {
 
         const { data, status } = await API.get(query);
 
-        if (status === 201) {
+        if (status === 201 || status === 200) {
           setData((prev) => ({
             ...prev,
             isLoading: false,
