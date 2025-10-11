@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { authenticate } from "../api/api"
 
 // USERNAME
 const usernameVerify = (errors = {}, values) => {
@@ -13,6 +14,21 @@ const usernameVerify = (errors = {}, values) => {
 
 export const usernameValidate = async (values) => {
   const errors = usernameVerify({}, values);
+
+
+  if (values.username) {
+    try {
+      const { status } = await authenticate(values.username);
+      if (status !== 200) {
+        toast.error("User doesn't exist ..");
+        errors.exist = "User doesn't exist ..";
+      }
+    } catch {
+      toast.error("User doesn't exist ..");
+      errors.exist = "User doesn't exist ..";
+    }
+  }
+
 
   return errors;
 };

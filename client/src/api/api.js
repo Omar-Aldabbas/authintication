@@ -15,7 +15,20 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+
+
+
+
+
+
 // POST
+// export const authenticate = async(username) => {
+//     try {
+//         return await API.post('/auth/authenticate', { username })
+//     } catch (error) {
+//         return { error : "Username doesn't exist...!"}
+//     }
+// }
 
 // register user
 export const register = async (credentials) => {
@@ -63,8 +76,8 @@ export const updataUser = async (response) => {
 };
 // export const registerMail = async (mailData) =>
 //   await API.post("/auth/register-mail", mailData);
-export const authenticate = async (userInfo) =>
-  await API.post("/auth/authenticate", userInfo);
+export const authenticate = async (username) =>
+  await API.post("/auth/authenticate", {username});
 
 export const generateOTP = async (username) => {
   try {

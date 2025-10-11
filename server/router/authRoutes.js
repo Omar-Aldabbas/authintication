@@ -27,7 +27,7 @@ router.get("/logout", logout);
 router.post("/register", register);
 router.post("/register-mail", registerMail);
 router.post("/login", userVerify, login);
-router.post("/authenticate", authenticate);
+router.post("/authenticate",userVerify, authenticate);
 
 // put
 router.put("/reset-password", userVerify, resetPassword);

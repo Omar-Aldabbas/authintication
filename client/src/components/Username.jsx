@@ -1,24 +1,27 @@
-import { Link } from "react-router-dom";
-import avatar from "../assets/avatar_2.jpeg";
-import {useFormik} from "formik"
+import { Link, useNavigate} from "react-router-dom";
+import profile from "../assets/profile.png";
+import { useFormik } from "formik";
 import { usernameValidate } from "../helper/validate";
+import { useAuthStore } from "../../store/store";
 
 export const Username = () => {
-  const formik = useFormik(
-    {
-      initialValues: {
-        username : ''
-      },
-      validate : usernameValidate,
-      validateOnBlur: false,
-      validateOnChange: false,
-      onSubmit : async values => {
-        console.log(values)
-      }
-    }
-  )
 
-
+  const navigate = useNavigate();
+  const setUsername = useAuthStore((state) => state.setUsername);
+  // const username = useAuthStore((state) => state.auth.username);
+  const formik = useFormik({
+    initialValues: {
+      username: "hola",
+    },
+    validate: usernameValidate,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      setUsername(values.username);
+      // console.log(username);
+      navigate("/password")
+    },
+  });
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -33,7 +36,7 @@ export const Username = () => {
             className="space-y-6 flex flex-col justify-center items-center"
           >
             <div>
-              <img src={avatar} alt="avatar" className="profile_img" />
+              <img src={profile} alt="profile" className="profile_img" />
             </div>
             <div className=" flex flex-col justify-center items-center gap-3">
               <input
@@ -41,9 +44,11 @@ export const Username = () => {
                 id="username"
                 placeholder="username"
                 className="textbox"
-                {...formik.getFieldProps('username')}
+                {...formik.getFieldProps("username")}
               />
-              <button type="submit" className="btn">Let's Go</button>
+              <button type="submit" className="btn">
+                Let's Go
+              </button>
             </div>
 
             <div>
