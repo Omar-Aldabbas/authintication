@@ -33,34 +33,26 @@ API.interceptors.request.use(
 // register user
 export const register = async (credentials) => {
   try {
+    // send register request
     const { data, status } = await API.post("/auth/register", credentials);
 
+    // destructure credentials
     const { username, email } = credentials;
 
-    //send email
+    // send register mail if success
     if (status === 201) {
       await API.post("/auth/register-mail", {
-        username: username,
+        username,
         userEmail: email,
         text: data.message,
       });
     }
-    return Promise.resolve(data.message);
+    return data;
   } catch (err) {
-    return Promise.reject(err.response.data);
+    throw err.response.data
   }
 };
 
-export const verifyPassword = async ({ username, password }) => {
-  try {
-    if (username) {
-      const { data } = await API.post("/auth/login", { username, password });
-      return Promise.resolve({ data });
-    }
-  } catch (error) {
-    return Promise.reject({ error: "Password not match" });
-  }
-};
 
 export const updataUser = async (response) => {
   try {

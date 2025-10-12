@@ -19,8 +19,8 @@ import {Reset} from "./components/Reset";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
-      <Route index element={<AuthPage />} />
-      <Route path="user" element={<Username />} />
+      {/* <Route  element={<AuthPage />} /> */}
+      <Route index element={<Username />} />
       <Route path="password" element={<Password/>}/>
       <Route path="recovery" element={<Recovery/>}/>
       <Route path="reset" element={<Reset/>}/>

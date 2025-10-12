@@ -7,7 +7,6 @@ import { useAuthStore } from "../store/store";
 export const Username = () => {
   const navigate = useNavigate();
   const setUsername = useAuthStore((state) => state.setUsername);
-  // const username = useAuthStore((state) => state.auth.username);
   const formik = useFormik({
     initialValues: {
       username: "hola",
@@ -17,6 +16,7 @@ export const Username = () => {
     validateOnChange: false,
     onSubmit: async (values) => {
       setUsername(values.username);
+
       navigate("/password");
     },
   });

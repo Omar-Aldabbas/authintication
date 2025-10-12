@@ -30,12 +30,12 @@ export const Register = () => {
         loading: `Creating an account`,
         success: <b>Account created</b>,
         error: (err) =>
-          err?.message ||
+          err?.message || err?.error ||
           (typeof err === "string" ? err : "Something went wrong"),
       });
 
       registerUser.then(function () {
-        navigate("/user");
+        navigate("/");
       });
     },
   });
